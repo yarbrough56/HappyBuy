@@ -13,7 +13,7 @@ import onlineShop.model.User;
 
 @Repository
 
-//的data 操作的的加
+//for data tier
 public class CustomerDaoImpl implements CustomerDao {
 
     @Autowired
@@ -23,7 +23,8 @@ public class CustomerDaoImpl implements CustomerDao {
    	 customer.getUser().setEnabled(true);
 
    	 Authorities authorities = new Authorities();
-   	 authorities.setAuthorities("ROLE_USER");  // 普通用户
+   	 // common  guests
+   	 authorities.setAuthorities("ROLE_USER");  
    	 authorities.setEmailId(customer.getUser().getEmailId());
 
    	 Cart cart = new Cart();
@@ -52,8 +53,9 @@ public class CustomerDaoImpl implements CustomerDao {
    	 try {
    		 session = sessionFactory.openSession();
    		 session.beginTransaction();
+   	   // select from eamil ID == userName
    		 user = (User)session.createCriteria(User.class).add(Restrictions.eq("emailId", userName)).uniqueResult();
-   		 															// seelct from eamil ID == userName
+   		 															
    		 session.getTransaction().commit();
    	 } catch (Exception e) {
    		 e.printStackTrace();
