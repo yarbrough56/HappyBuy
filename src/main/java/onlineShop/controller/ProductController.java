@@ -33,22 +33,24 @@ public class ProductController {
     @RequestMapping(value = "/getAllProducts",method = RequestMethod.GET)
     public ModelAndView getAllProducts() {
    	 List<Product> products = productService.getAllProducts();
-   	 return new ModelAndView("productList", "products", products); // 第二个变量是占位符
+   	 // 第二个变量是占位符
+   	 return new ModelAndView("productList", "products", products); 
     }
 
     @RequestMapping(value = "/getProductById/{productId}", method = RequestMethod.GET)
-    public ModelAndView getProductById(@PathVariable(value = "productId") int productId) { // 从endpoint 里 找到 对应的参数， juputer里的getparameter
+    // 从endpoint 里 找到 对应的参数， juputer里的getparameter
+    public ModelAndView getProductById(@PathVariable(value = "productId") int productId) { 
    	 Product product = productService.getProductById(productId);
    	 return new ModelAndView("productPage", "product", product);// MVC 自带的 
    	 
     }
 
-    @RequestMapping(value = "/admin/delete/{productId}",  method = RequestMethod.GET)  // delete can only be used by admin
+    	// delete can only be used by admin
+    @RequestMapping(value = "/admin/delete/{productId}",  method = RequestMethod.GET)  
     public String deleteProduct(@PathVariable(value = "productId") int productId) {
    	 // for MAC : 
     	Path path = Paths.get("/Users/yanbo/products/" + productId + ".jpg");
-            // For windows
-//	Path path = Paths.get("C:\\products\\" + productId + ".jpg");
+  
 
 
    	 if (Files.exists(path)) {
@@ -82,8 +84,9 @@ public class ProductController {
     
 
     @RequestMapping(value = "/admin/product/addProduct", method = RequestMethod.POST)
+    // mvc自带的
     public String addProduct(@Valid @ModelAttribute(value = "productForm") Product product, BindingResult result) {
-    									// mvc自带的
+    									
    	 if (result.hasErrors()) {
    		 return "addProduct";
    	 }
@@ -91,7 +94,6 @@ public class ProductController {
    	 MultipartFile image = product.getProductImage();
    	 if (image != null && !image.isEmpty()) {
    		Path path = Paths.get("/Users/yanbo/products/" + product.getId() + ".jpg");
-//	            Path path = Paths.get("C:\\products\\" + product.getId() + ".jpg");
 
 
    		 try {
@@ -102,7 +104,8 @@ public class ProductController {
    			 e.printStackTrace();
    		 }
    	 }
-   	 return "redirect:/getAllProducts"; // addProduct Page
+   	 // addProduct Page
+   	 return "redirect:/getAllProducts"; 
     }
 
     @RequestMapping(value = "/admin/product/editProduct/{productId}")

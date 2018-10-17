@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import onlineShop.model.Product;
 
 @Repository 
-//dao 的操作
 public class ProductDaoImpl implements ProductDao {
 
 	@Autowired
@@ -22,12 +21,14 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			session.beginTransaction();//database operation all through transaction
+			//database operation all through transaction
+			session.beginTransaction();
 			session.save(product);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback(); // if any exception appeared, rollback to the state beofore the opeation
+			// if any exception appeared, rollback to the state beofore the opeation
+			session.getTransaction().rollback(); 
 		} finally {
 			if (session != null) {
 				session.close();
@@ -41,7 +42,8 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			Product product = (Product) session.get(Product.class, productId);  // 强制类型转换  --> get only return a generic type 
+			// 强制类型转换  --> get only return a generic type 
+			Product product = (Product) session.get(Product.class, productId);  
 			session.delete(product);
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -61,7 +63,8 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			session.saveOrUpdate(product);  // saveOrUpdate
+			 // saveOrUpdate
+			session.saveOrUpdate(product); 
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,7 +105,9 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			products = session.createCriteria(Product.class).list(); // no recommend creatQuery //(Prodcut.class)--> persistentClass means all the stuff data are stored in database not jvm
+			// should try creatQuery maybe
+			//(Prodcut.class)--> persistentClass means all the stuff data are stored in database not jvm
+			products = session.createCriteria(Product.class).list(); 
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

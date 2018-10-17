@@ -1,5 +1,7 @@
 package onlineShop.service;
 
-public class CartService {
+import onlineShop.model.Cart;
 
+public interface CartService {
+    Cart getCartById(int CartId);
 }

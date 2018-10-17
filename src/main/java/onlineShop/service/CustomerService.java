@@ -1,5 +1,10 @@
 package onlineShop.service;
 
-public class CustomerService {
+import onlineShop.model.Customer;
 
+public interface CustomerService {
+
+    void addCustomer(Customer customer);
+
+    Customer getCustomerByUserName(String userName);
 }

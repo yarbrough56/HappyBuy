@@ -15,7 +15,8 @@ import onlineShop.model.Customer;
 import onlineShop.service.CartService;
 import onlineShop.service.CustomerService;
 
-@Controller   // 注册到dispatch servlet下面
+@Controller   
+//注册到dispatch servlet下面
 public class CartController {  
     @Autowired
     private CustomerService customerService;
@@ -26,7 +27,8 @@ public class CartController {
     @RequestMapping(value = "/cart/getCartById", method = RequestMethod.GET)
     //  前端发送一个请求后，相印的后段需要有一个method 去deal这个请求
     public ModelAndView getCartId(){
-   	 Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication(); // securityContextHolder
+    	// securityContextHolder
+   	 Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication(); 
    	 String username = loggedInUser.getName();
    	 Customer customer = customerService.getCustomerByUserName(username);
    	 ModelAndView modelAndView = new ModelAndView("cart");

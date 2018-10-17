@@ -1,5 +1,8 @@
 package onlineShop.service;
 
-public class SalesOrderService {
+import onlineShop.model.SalesOrder;
 
+public interface SalesOrderService {
+
+	void addSalesOrder(SalesOrder salesOrder);
 }
